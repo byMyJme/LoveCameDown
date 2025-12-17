@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>May God’s Love and Light</title>
+
+  <style>
+    :root { --pad: 16px; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: #1f2937;
+      background: url('background.png') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #fff;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      padding: calc(env(safe-area-inset-top, 0px) + 14px) var(--pad) 14px;
+      background: linear-gradient(#ffffffcc, #ffffff99);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      z-index: 2;
+      text-align: center;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    header .blessing {
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #1e40af;
+    }
+
+    main {
+      padding: 10px var(--pad) calc(env(safe-area-inset-bottom, 0px) + 18px);
+      display: grid;
+      place-items: center;
+    }
+
+    .frame {
+      width: 100%;
+      max-width: 640px;
+      height: 70vh;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+
+    #photo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+      user-select: none;
+      -webkit-user-drag: none;
+      opacity: 0;
+      transition: opacity 400ms ease;
+    }
+
+    @media (max-width: 380px) {
+      header .blessing {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <p class="blessing">May God’s Love and Light fill your home</p>
+  </header>
+
+  <main>
+    <figure class="frame">
+      <img id="photo" alt="Blessing image" loading="eager" decoding="async"/>
+    </figure>
+  </main>
+
+  <script>
+    // ---- Random Image on Page Load ----
+    const TOTAL_IMAGES = 12;          // image_1.jpg ... image_18.jpg
+    const IMAGE_PREFIX = 'image_';
+    const IMAGE_EXT = '.jpg';
+
+    function pickRandomImage() {
+      const index = Math.floor(Math.random() * TOTAL_IMAGES) + 1;
+      return `${IMAGE_PREFIX}${index}${IMAGE_EXT}`;
+    }
+
+    function setPhoto(src) {
+      const img = document.getElementById('photo');
+      const pre = new Image();
+
+      pre.onload = () => {
+        img.src = pre.src;
+        img.style.opacity = '1';
+      };
+
+      pre.src = src;
+    }
+
+    // ---- Init ----
+    setPhoto(pickRandomImage());
+  </script>
+</body>
+</html>
